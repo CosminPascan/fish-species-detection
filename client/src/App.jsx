@@ -19,7 +19,7 @@ function App() {
                 inputShape: yolov8.inputs[0].shape
             })
         })
-        console.log('Model has been loaded!')
+        // console.log('Model has been loaded!')
     }, [])
 
     return (

@@ -12,12 +12,17 @@ export const renderBoxes = (canvas, boxesData, scoresData, classesData, ratios) 
     ctx.font = font
     ctx.textBaseline = 'top'
 
+    let detectedSpecies = null
+    let detectedConfidence = null
+
     for (let i = 0; i < scoresData.length; i++) {
         const className = labels[classesData[i]]
-        const score = (scoresData[i] * 100).toFixed(2)
+        const classScore = (scoresData[i] * 100).toFixed(2)
 
-        if (score >= 85) {
+        if (classScore >= 85) {
             // console.log(`class: ${className}\nscore: ${score}`)
+            detectedSpecies = className
+            detectedConfidence = classScore
 
             let [y1, x1, y2, x2] = boxesData.slice(4 * i, 4 * (i + 1))
             x1 *= ratios[0]
@@ -43,7 +48,7 @@ export const renderBoxes = (canvas, boxesData, scoresData, classesData, ratios) 
 
             // draw label background
             ctx.fillStyle = color
-            const textWidth = ctx.measureText(className + ' - ' + score + '%').width
+            const textWidth = ctx.measureText(className + ' - ' + classScore + '%').width
             const textHeight = parseInt(font, 10)
             const yText = y1 - (textHeight + ctx.lineWidth)
             ctx.fillRect(
@@ -56,10 +61,12 @@ export const renderBoxes = (canvas, boxesData, scoresData, classesData, ratios) 
             // draw label
             ctx.fillStyle = '#FFFFFF'
             ctx.fillText(
-                className + ' - ' + score + '%', 
+                className + ' - ' + classScore + '%', 
                 x1 - 1, 
                 yText < 0 ? 0 : yText
             )
         }
     }
+
+    return [detectedSpecies, detectedConfidence]
 }

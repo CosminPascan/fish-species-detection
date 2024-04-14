@@ -29,7 +29,7 @@ const preprocess = (source, modelWidth, modelHeight) => {
     return [input, xRatio, yRatio]
 }
 
-const detect = async(model, cameraSource, canvas, callback = () => {}) => {
+const detect = async(model, cameraSource, canvas, returnDetectionData) => {
     const [modelWidth, modelHeight] = model.inputShape.slice(1, 3)
 
     tf.engine().startScope()
@@ -63,24 +63,32 @@ const detect = async(model, cameraSource, canvas, callback = () => {}) => {
     const scoresData = scores.gather(nms, 0).dataSync()
     const classesData = classes.gather(nms, 0).dataSync()
 
-    renderBoxes(canvas, boxesData, scoresData, classesData, [xRatio, yRatio])
+    const [detectedSpecies, detectedConfidence] = renderBoxes(canvas, boxesData, scoresData, classesData, [xRatio, yRatio])
     
     tf.dispose([res, transRes, boxes, scores, classes, nms])
-    callback()
+
+    returnDetectionData(detectedSpecies, detectedConfidence)
 
     tf.engine().endScope()
 }
 
-export const detectLive = (model, camera, canvas) => {
-    const detectFrame = async () => {
+export const detectLive = (model, camera, canvas, callback) => {
+    const detectFrame = async (model, camera, canvas, returnDetectionData) => {
         const cameraSource = camera.video
+
         if (cameraSource === null) {
             return
         }
-        detect(model, cameraSource, canvas, () => {
-            requestAnimationFrame(detectFrame)
+        
+        detect(model, cameraSource, canvas, (detectedSpecies, detectedConfidence) => {
+            returnDetectionData(detectedSpecies, detectedConfidence)
+            requestAnimationFrame(() => {
+                detectFrame(model, camera, canvas, returnDetectionData)
+            })
         })
     }
 
-    detectFrame()
+    detectFrame(model, camera, canvas, (detectedSpecies, detectedConfidence) => {
+        callback(detectedSpecies, detectedConfidence)
+    })
 }
