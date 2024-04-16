@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs'
-import labels from '../assets/labels.json'
+import labels from '../data/labels.json'
 import { renderBoxes } from './renderBox'
 
 const noOfClasses = labels.length

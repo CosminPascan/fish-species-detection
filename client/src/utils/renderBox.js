@@ -1,4 +1,4 @@
-import labels from '../assets/labels.json'
+import labels from '../data/labels.json'
 
 export const renderBoxes = (canvas, boxesData, scoresData, classesData, ratios) => {
     const ctx = canvas.getContext('2d')
