@@ -19,6 +19,11 @@ public class UserServices : IUserServices
         _context.SaveChanges();
     }
 
+    public User GetUserById(int id)
+    {
+        return _context.Users.FirstOrDefault(u => u.Id == id);
+    }
+
     public User GetUserByEmail(string email)
     {
         return _context.Users.FirstOrDefault(u => u.Email == email);
@@ -29,7 +34,7 @@ public class UserServices : IUserServices
         return _context.Users.FirstOrDefault(u => u.RefreshToken.Token.Equals(token));
     }
 
-    public void AddRefreshTokenToUser(RefreshToken refreshToken, Guid id)
+    public void AddRefreshTokenToUser(RefreshToken refreshToken, int id)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
         user.RefreshToken = refreshToken;

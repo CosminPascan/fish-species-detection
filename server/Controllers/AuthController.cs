@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using server.Dtos;
+using server.Dtos.User;
 using server.Models;
 using server.Services;
 
@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
 
         _userServices.CreateUser(user);
 
-        return Created("User created", user);
+        return Created($"/api/register/{user.Id}", user);
     }
 
     [HttpPost("login")]
@@ -39,7 +39,7 @@ public class AuthController : ControllerBase
         var user = _userServices.GetUserByEmail(dto.Email);
 
         if (user == null) 
-            return NotFound(new { message = "Invalid email!"});
+            return NotFound(new { message = "Invalid email!" });
 
         if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             return NotFound(new { message = "Invalid password!" });
@@ -60,7 +60,7 @@ public class AuthController : ControllerBase
         var refreshToken = Request.Cookies["refresh-token"];
         
         if (refreshToken == null) 
-            return Unauthorized("Refresh token has expired! Please login again!");
+            return Unauthorized(new { message = "Refresh token has expired! Please login again!" });
 
         var user = _userServices.GetUserByRefreshToken(refreshToken);
 

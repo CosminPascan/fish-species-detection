@@ -6,14 +6,17 @@ namespace server.Models;
 public class User 
 {   
     [Key]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
-    public string Username { get; set; } = string.Empty;
+    [Required]
+    public string Username { get; set; }
 
-    public string Email { get; set; } = string.Empty;
-
-    public string Password { get; set; } = string.Empty;
+    [Required, StringLength(50)]
+    public string Email { get; set; }
+    
+    [Required]
+    public string Password { get; set; }
 
     [ForeignKey("Token")]
-    public RefreshToken RefreshToken { get; set; }
+    public virtual RefreshToken RefreshToken { get; set; }
 }

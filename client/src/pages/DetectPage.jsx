@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import * as tf from '@tensorflow/tfjs'
 import CameraHandler from '../components/CameraHandler'
 import FishList from '../components/FishList'
-import Navbar from '../components/Navbar'
+import '../style/DetectPage.css'
 
-const DetectPage = ({ modelPath, setIsAuthenticated }) => {
+const DetectPage = ({ modelPath }) => {
     const [model, setModel] = useState({
         net: null,
         inputShape: [1, 0, 0, 3]
@@ -24,8 +24,7 @@ const DetectPage = ({ modelPath, setIsAuthenticated }) => {
 
     return (
         <>  
-            <Navbar setIsAuthenticated={setIsAuthenticated} />
-            <div className="container">
+            <div className="detect-container">
                 <CameraHandler model={model} setFish={setFish} />
                 <FishList fish={fish} />
             </div>

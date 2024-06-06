@@ -26,7 +26,7 @@ public class TokenServices : ITokenServices
         var securityToken = new JwtSecurityToken(
             claims: new List<Claim> {
                 new Claim("id", user.Id.ToString()),
-                new Claim("email", user.Email)
+                new Claim("e-mail", user.Email)
             },
             expires: DateTime.Now.AddMinutes(10),
             signingCredentials: credentials

@@ -1,67 +1,17 @@
-.navbar {
-    background-color: #1D3853;
+.detect-container {
     display: flex;
-    align-items: center;
-}
-
-.navbar img {
-    margin-left: 5vw;
-}
-
-.navbar ul {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    width: 100%;
-    height: 10vh;
-    margin-right: 5vw;
-    list-style-type: none;
-}
-
-.navbar ul li {
-    margin: 0 2vw;
-    font-size: 1em;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    color: gainsboro;
-    cursor: pointer;
-}
-
-.logout-btn {
-    background: rgb(127, 3, 3);
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.logout-btn:hover {
-    background: rgb(143, 2, 2);
-    color: gainsboro;
-}
-
-.container {
-    width: 100%;
-    height: 90vh;
-    display: flex;
-}
-
-.camera-container, .fish-container {
-    height: 90vh;
+    min-height: 88%;
 }
 
 .camera-container {
     background: #23C686;
     width: 60%;
+}
+
+.fish-container {
+    background: #FFFFFF;
+    color: #1D3853;
+    width: 40%;
 }
 
 .camera-btn-container {
@@ -76,7 +26,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    margin-top: 5rem;
+    margin-top: 3rem;
     width: 100%;
     height: 60vh;
 }
@@ -108,11 +58,7 @@
     border: 2px solid #FBFCF6;
 }
 
-.fish-container {
-    background: white;
-    width: 40%;
-    color: #1D3853
-}
+
 
 .list-title {
     height: 15vh;

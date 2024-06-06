@@ -5,7 +5,7 @@ namespace server.Models;
 public class RefreshToken
 {
     [Key]
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; set; }
 
     public DateTime Created { get; set; }
 

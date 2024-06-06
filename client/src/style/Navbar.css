@@ -1,0 +1,52 @@
+.navbar {
+    background: #1D3853;
+    display: flex;
+    align-items: center;
+    min-width: 100%;
+    min-height: 12%;
+}
+
+.navbar img {
+    margin: 0 5vw;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    margin: 0 5vw;
+    list-style-type: none;
+}
+
+.navbar ul li {
+    margin: 0 2vw;
+}
+
+.navbar ul li a, .logout-btn {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.navbar ul li a:hover {
+    color: #D3D3D3;
+}
+
+.logout-btn {
+    background: #C30010;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 10px 15px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+.logout-btn:hover {
+    background: #8F0202;
+    color: #D3D3D3;
+}

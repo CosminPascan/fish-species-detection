@@ -1,18 +1,12 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import '../style/Navbar.css'
 
-const Navbar = ({ setIsAuthenticated }) => {
+const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
     const unauthMenu = ['Home', 'About', 'Login']
     const authMenu = ['Home', 'Detect', 'About']
 
-    let menu = unauthMenu
-    let isAuthenticated = false
-
-    setIsAuthenticated(auth => {
-        menu = auth ? authMenu : unauthMenu
-        isAuthenticated = auth
-        return auth
-    })
+    let menu = isAuthenticated ? authMenu : unauthMenu
 
     return (
         <nav className='navbar'>
@@ -27,7 +21,7 @@ const Navbar = ({ setIsAuthenticated }) => {
                 ))}
                 <li>
                     {isAuthenticated && <button className='logout-btn' onClick={() => {
-                        setIsAuthenticated(auth => {
+                        setIsAuthenticated(() => {
                             localStorage.clear()
                             return false
                         })
