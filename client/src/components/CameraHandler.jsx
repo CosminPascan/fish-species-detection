@@ -4,6 +4,7 @@ import { detectLive } from '../utils/detect'
 
 const CameraHandler = ({ model, setFish }) => {
     const [streaming, setStreaming] = useState(false)
+    const [distance, setDistance] = useState(0)
 
     const cameraRef = useRef(null)
     const canvasRef = useRef(null)
@@ -14,6 +15,10 @@ const CameraHandler = ({ model, setFish }) => {
         facingMode: 'environment'
     }
 
+    const handleDistance = (e) => {
+        setDistance(e.target.value)
+    }
+
     return (
         <div className='camera-container'>
             <div className='camera'>
@@ -22,7 +27,7 @@ const CameraHandler = ({ model, setFish }) => {
                         audio={false}
                         ref={cameraRef}
                         videoConstraints={videoConstraints}
-                        onPlay={() => detectLive(model, cameraRef.current, canvasRef.current, (detectedSpecies, detectedConfidence) => {
+                        onPlay={() => detectLive(model, distance, cameraRef.current, canvasRef.current, (detectedSpecies, detectedConfidence, realWidth, realHeight) => {
                             if (detectedSpecies !== null && detectedConfidence !== null) {
                                 setFish(fish => {
                                     let isDetected = false
@@ -36,12 +41,23 @@ const CameraHandler = ({ model, setFish }) => {
                                     }
 
                                     if (!isDetected) {
-                                        fish = [...fish, {species: detectedSpecies, highestConfidence: detectedConfidence}]
+                                        fish = [...fish, {species: detectedSpecies, highestConfidence: detectedConfidence, width: realWidth, height: realHeight}]
                                     } else {
                                         let f = fish[index]
+                                        console.log(`${f.width}  ${realWidth}`)
                                         if (f.highestConfidence < detectedConfidence) {
                                             f.highestConfidence = detectedConfidence
                                         }
+
+                                        if (f.width < realWidth) {
+                                            f.width = realWidth
+                                            console.log(`dcplm nu updatezi dupa 1-`)
+                                        }
+
+                                        if (f.height < realHeight) {
+                                            f.height = realHeight
+                                        }
+
                                         fish = [...fish]                                         
                                     }
 
@@ -58,7 +74,9 @@ const CameraHandler = ({ model, setFish }) => {
             
             <div className="camera-btn-container">
                 <button onClick={() => {
-                    if (streaming === false) {
+                    if (distance === 0 || distance === '') {
+                        alert('Please set a distance to begin!')
+                    } else if (streaming === false) {
                         setStreaming(true)
                     } else if (streaming === true) {
                         let stream = cameraRef.current.stream
@@ -69,6 +87,13 @@ const CameraHandler = ({ model, setFish }) => {
                 }}>
                     {streaming === true ? 'Close' : 'Open'} camera
                 </button>
+
+                <div className='distance-wrapper'>
+                    <div className='distance-text'>Distance (cm)</div>
+                    <div className='d-input-box'>
+                        <input type='text' placeholder={0} required onChange={handleDistance} value={distance} />
+                    </div>
+                </div>
             </div>
         </div>
     )

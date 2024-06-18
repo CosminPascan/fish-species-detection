@@ -8,7 +8,14 @@ public class Detection
     [Key]
     public int Id { get; set; }
 
-    public double HighestConfidence { get; set; }
+    [Required]
+    public double Confidence { get; set; }
+
+    [Required]
+    public double Width { get; set; }
+
+    [Required]
+    public double Height { get; set; }
 
     [ForeignKey("FishId")]
     public virtual Fish Fish { get; set; }

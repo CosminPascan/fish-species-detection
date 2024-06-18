@@ -29,10 +29,18 @@ public class DetectionServices : IDetectionServices
         return _context.Detections.FirstOrDefault(d => d.Id == id);
     }
 
-    public void UpdateHighestConfidence(int id, double highestConfidence)
+    public void UpdateValue(int id, double value, string property)
     {
         var detection = GetDetectionById(id);
-        detection.HighestConfidence = highestConfidence;
+
+        if (property == "confidence") {
+            detection.Confidence = value;
+        } else if (property == "width") {
+            detection.Width = value;
+        } else if (property == "height") {
+            detection.Height = value;
+        }
+
         _context.SaveChanges();
     }
 }

@@ -11,7 +11,9 @@ public static class DetectionMappers
         {
             Species = detection.Fish.Species,
             Description = detection.Fish.Description,
-            HighestConfidence = detection.HighestConfidence
+            Confidence = detection.Confidence,
+            Width = detection.Width,
+            Height = detection.Height
         };
     }
 }

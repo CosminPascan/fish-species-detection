@@ -6,5 +6,9 @@ public class DetectionResponseDto
 
     public string Description { get; set; }
 
-    public double HighestConfidence { get; set; }
+    public double Confidence { get; set; }
+
+    public double Width { get; set; }
+
+    public double Height { get; set; }
 }

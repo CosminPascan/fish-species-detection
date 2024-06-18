@@ -29,3 +29,5 @@ In client directory
 ```bash
 npm run dev
 ```
+
+![alt text](ss.png)

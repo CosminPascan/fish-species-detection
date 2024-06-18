@@ -10,5 +10,5 @@ public interface IDetectionServices
 
     Detection GetDetectionById(int id);
 
-    void UpdateHighestConfidence(int id, double HighestConfidence);
+    void UpdateValue(int id, double value, string property);
 }

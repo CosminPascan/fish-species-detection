@@ -41,7 +41,9 @@ public class DetectionController : ControllerBase
         if (d == null) {
             var detection = new Detection
             {   
-                HighestConfidence = dto.HighestConfidence,
+                Confidence = dto.Confidence,
+                Width = dto.Width,
+                Height = dto.Height,
                 Fish = fish,
                 Habitat = habitat
             };
@@ -51,10 +53,22 @@ public class DetectionController : ControllerBase
             return Created($"/api/detections/{detection.Id}", detection.ToDetectionResponseDto());
         }
 
-        if (d.HighestConfidence > dto.HighestConfidence)
+        if (d.Confidence >= dto.Confidence && d.Width >= dto.Width && d.Height >= dto.Height) {
             return Ok("A better detection already exists!");
+        }
+        
+        if (dto.Confidence > d.Confidence) {
+            _detectionServices.UpdateValue(d.Id, dto.Confidence, "confidence");
+        }
+        
+        if (dto.Width > d.Width) {
+            _detectionServices.UpdateValue(d.Id, dto.Width, "width");
+        }
 
-        _detectionServices.UpdateHighestConfidence(d.Id, dto.HighestConfidence);
+        if (dto.Width > d.Width) {
+            _detectionServices.UpdateValue(d.Id, dto.Height, "height");
+        }
+
         return Ok("Detection has been updated!");
     }
 }

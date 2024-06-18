@@ -16,7 +16,7 @@ const App = () => {
                 <Route path='/' element={<h1>Home Page</h1>} />
                 <Route path='/login' element={isAuthenticated ? <Navigate to='/' /> : <LoginPage setIsAuthenticated={setIsAuthenticated} />} />
                 <Route path='/detect' element={isAuthenticated ? <DetectPage modelPath={modelPath} /> : <Navigate to='/login' />} />
-                <Route path='/about' element={<h1>About Page</h1>} />
+                <Route path='/habitats' element={isAuthenticated ? <h1>My Habitats Page</h1> : <Navigate to='/login' />} />
                 <Route path='*' element={<Navigate to='/' />} />
             </Routes>
         </>
