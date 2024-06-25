@@ -1,0 +1,58 @@
+.habitats-container {
+    background: #FFFFFF;
+    color: #1D3853;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 88%;
+}
+
+.habitats-title {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.habitats-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.habitat-item {
+    width: 80%;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 2px solid #1D3853;
+    border-radius: 10px;
+}
+
+.habitat-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.habitat-description {
+    margin: 1rem 0;
+}
+
+.detections-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.detection-item {
+    display: flex;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.detection-item img {
+    margin-right: 1rem;
+    border-radius: 10px;
+}

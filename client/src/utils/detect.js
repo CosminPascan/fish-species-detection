@@ -63,12 +63,12 @@ const detect = async(model, distance, cameraSource, canvas, returnDetectionData)
     const scoresData = scores.gather(nms, 0).dataSync()
     const classesData = classes.gather(nms, 0).dataSync()
 
-    const [detectedSpecies, detectedConfidence, realWidth, realHeight] = 
+    const [detectedSpecies, detectedConfidence, realLength, realHeight] = 
         renderBoxes(distance, canvas, boxesData, scoresData, classesData, [xRatio, yRatio])
     
     tf.dispose([res, transRes, boxes, scores, classes, nms])
 
-    returnDetectionData(detectedSpecies, detectedConfidence, realWidth, realHeight)
+    returnDetectionData(detectedSpecies, detectedConfidence, realLength, realHeight)
 
     tf.engine().endScope()
 }
@@ -81,15 +81,15 @@ export const detectLive = (model, distance, camera, canvas, callback) => {
             return
         }
         
-        detect(model, distance, cameraSource, canvas, (detectedSpecies, detectedConfidence, realWidth, realHeight) => {
-            returnDetectionData(detectedSpecies, detectedConfidence, realWidth, realHeight)
+        detect(model, distance, cameraSource, canvas, (detectedSpecies, detectedConfidence, realLength, realHeight) => {
+            returnDetectionData(detectedSpecies, detectedConfidence, realLength, realHeight)
             requestAnimationFrame(() => {
                 detectFrame(model, distance, camera, canvas, returnDetectionData)
             })
         })
     }
 
-    detectFrame(model, distance, camera, canvas, (detectedSpecies, detectedConfidence, realWidth, realHeight) => {
-        callback(detectedSpecies, detectedConfidence, realWidth, realHeight)
+    detectFrame(model, distance, camera, canvas, (detectedSpecies, detectedConfidence, realLength, realHeight) => {
+        callback(detectedSpecies, detectedConfidence, realLength, realHeight)
     })
 }

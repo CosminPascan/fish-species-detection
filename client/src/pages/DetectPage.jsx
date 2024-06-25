@@ -22,19 +22,51 @@ const DetectPage = ({ modelPath }) => {
             })
         })
         // console.log('Model has been loaded!')
-
-        const token = localStorage.getItem('accessToken')
-        fetch('http://localhost:5234/api/habitats/all', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setHabitats(data.habitats)
+        
+        const loadHabitats = async () => {
+            let token = localStorage.getItem('accessToken')
+            const response = await fetch('http://localhost:5234/api/habitats/all', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             })
+            if (response.status === 401) {
+                await fetch('http://localhost:5234/api/refresh-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('accessToken', data.accessToken)
+                        token = localStorage.getItem('accessToken')
+                    })
+            }
+
+            await fetch('http://localhost:5234/api/habitats/all', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    let arr = []
+                    for (let h of data.habitats) {
+                        arr.push(h.name)
+                    }
+                    setHabitats(arr)
+                    setSelectedHabitat(arr[0])
+                })
+        }
+
+        loadHabitats()
+        
     }, [])
 
     const handleHabitat = (e) => {
@@ -48,17 +80,34 @@ const DetectPage = ({ modelPath }) => {
                 <div className='fish-container'>
                     <FishList fish={fish} />
                     <div className='habitats-wrapper'>
-                        <select className='select' onChange={handleHabitat}>
+                        <select className='select-habitats' onChange={handleHabitat}>
                             {habitats.map((habitat, index) => {
                                 return (
                                     <option key={index}>
-                                        {habitat.name}
+                                        {habitat}
                                     </option>
                                 )
                             })}
                         </select>
-                        <button className='update-habitats-btn' onClick={() => {
-                            console.log(selectedHabitat)
+                        <button className='update-habitats-btn' onClick={async () => {
+                            if (fish.length) {
+                                for (let f of fish) {
+                                    f['habitatName'] = selectedHabitat
+                                    //console.log(JSON.stringify(f))
+
+                                    let token = localStorage.getItem('accessToken')
+                                    await fetch('http://localhost:5234/api/detections/create', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Bearer ${token}`
+                                        },
+                                        body: JSON.stringify(f)
+                                    })
+                                }
+                            } else {
+                                alert('No species detected!')
+                            }
                         }}>
                             Update habitat
                         </button>

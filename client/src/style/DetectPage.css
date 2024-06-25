@@ -146,3 +146,17 @@ h1 {
 .d-input-box input::placeholder {
     color: #FFFFFF;
 }
+
+.select-habitats {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1D3853;
+    border: 2px solid #1D3853;
+    border-radius: 15px;
+}
+
+.select-habitats option {
+    font-size: 1rem;
+    font-weight: 700;
+}

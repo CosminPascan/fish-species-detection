@@ -35,8 +35,8 @@ public class DetectionServices : IDetectionServices
 
         if (property == "confidence") {
             detection.Confidence = value;
-        } else if (property == "width") {
-            detection.Width = value;
+        } else if (property == "length") {
+            detection.Length = value;
         } else if (property == "height") {
             detection.Height = value;
         }

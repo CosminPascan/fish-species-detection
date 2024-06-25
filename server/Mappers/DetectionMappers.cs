@@ -12,7 +12,7 @@ public static class DetectionMappers
             Species = detection.Fish.Species,
             Description = detection.Fish.Description,
             Confidence = detection.Confidence,
-            Width = detection.Width,
+            Length = detection.Length,
             Height = detection.Height
         };
     }

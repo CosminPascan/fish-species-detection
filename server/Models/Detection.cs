@@ -12,7 +12,7 @@ public class Detection
     public double Confidence { get; set; }
 
     [Required]
-    public double Width { get; set; }
+    public double Length { get; set; }
 
     [Required]
     public double Height { get; set; }

@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import LoginPage from './pages/LoginPage'
 import DetectPage from './pages/DetectPage'
+import HabitatsPage from './pages/HabitatsPage'
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('accessToken') ? true : false)
@@ -16,7 +17,7 @@ const App = () => {
                 <Route path='/' element={<h1>Home Page</h1>} />
                 <Route path='/login' element={isAuthenticated ? <Navigate to='/' /> : <LoginPage setIsAuthenticated={setIsAuthenticated} />} />
                 <Route path='/detect' element={isAuthenticated ? <DetectPage modelPath={modelPath} /> : <Navigate to='/login' />} />
-                <Route path='/habitats' element={isAuthenticated ? <h1>My Habitats Page</h1> : <Navigate to='/login' />} />
+                <Route path='/habitats' element={isAuthenticated ? <HabitatsPage /> : <Navigate to='/login' />} />
                 <Route path='*' element={<Navigate to='/' />} />
             </Routes>
         </>

@@ -27,7 +27,7 @@ const CameraHandler = ({ model, setFish }) => {
                         audio={false}
                         ref={cameraRef}
                         videoConstraints={videoConstraints}
-                        onPlay={() => detectLive(model, distance, cameraRef.current, canvasRef.current, (detectedSpecies, detectedConfidence, realWidth, realHeight) => {
+                        onPlay={() => detectLive(model, distance, cameraRef.current, canvasRef.current, (detectedSpecies, detectedConfidence, realLength, realHeight) => {
                             if (detectedSpecies !== null && detectedConfidence !== null) {
                                 setFish(fish => {
                                     let isDetected = false
@@ -41,17 +41,16 @@ const CameraHandler = ({ model, setFish }) => {
                                     }
 
                                     if (!isDetected) {
-                                        fish = [...fish, {species: detectedSpecies, highestConfidence: detectedConfidence, width: realWidth, height: realHeight}]
+                                        fish = [...fish, {species: detectedSpecies, confidence: detectedConfidence, length: realLength, height: realHeight}]
                                     } else {
                                         let f = fish[index]
-                                        console.log(`${f.width}  ${realWidth}`)
-                                        if (f.highestConfidence < detectedConfidence) {
-                                            f.highestConfidence = detectedConfidence
+                                        
+                                        if (f.confidence < detectedConfidence) {
+                                            f.confidence = detectedConfidence
                                         }
 
-                                        if (f.width < realWidth) {
-                                            f.width = realWidth
-                                            console.log(`dcplm nu updatezi dupa 1-`)
+                                        if (f.length < realLength) {
+                                            f.length = realLength
                                         }
 
                                         if (f.height < realHeight) {

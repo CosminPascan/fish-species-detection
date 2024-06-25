@@ -24,7 +24,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", build => 
     {
-        build.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader();
+        build.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
     }));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -38,11 +38,9 @@ builder.Services.AddScoped<IDetectionServices, DetectionServices>();
 
 var app = builder.Build();
 
+app.MapControllers();
+app.UseCors("corspolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors("corspolicy");
-
-app.MapControllers();
 
 app.Run();

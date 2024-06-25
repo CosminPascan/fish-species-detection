@@ -6,9 +6,9 @@ const FishList = ({ fish }) => {
                 <ul>
                     {fish.map((fish, index) => (
                         <li key={index}>
-                            Species: {fish.species} <br />
-                            Confidence: {fish.highestConfidence}% <br />
-                            Width: {fish.width}cm <br />
+                            <h2>Species: {fish.species} </h2>
+                            Confidence: {fish.confidence}% <br />
+                            Length: {fish.length}cm <br />
                             Height: {fish.height}cm <br />
                         </li>
                     ))}

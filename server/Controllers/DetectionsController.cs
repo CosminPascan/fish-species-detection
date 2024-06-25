@@ -42,7 +42,7 @@ public class DetectionController : ControllerBase
             var detection = new Detection
             {   
                 Confidence = dto.Confidence,
-                Width = dto.Width,
+                Length = dto.Length,
                 Height = dto.Height,
                 Fish = fish,
                 Habitat = habitat
@@ -53,7 +53,7 @@ public class DetectionController : ControllerBase
             return Created($"/api/detections/{detection.Id}", detection.ToDetectionResponseDto());
         }
 
-        if (d.Confidence >= dto.Confidence && d.Width >= dto.Width && d.Height >= dto.Height) {
+        if (d.Confidence >= dto.Confidence && d.Length >= dto.Length && d.Height >= dto.Height) {
             return Ok("A better detection already exists!");
         }
         
@@ -61,11 +61,11 @@ public class DetectionController : ControllerBase
             _detectionServices.UpdateValue(d.Id, dto.Confidence, "confidence");
         }
         
-        if (dto.Width > d.Width) {
-            _detectionServices.UpdateValue(d.Id, dto.Width, "width");
+        if (dto.Length > d.Length) {
+            _detectionServices.UpdateValue(d.Id, dto.Length, "length");
         }
 
-        if (dto.Width > d.Width) {
+        if (dto.Height > d.Height) {
             _detectionServices.UpdateValue(d.Id, dto.Height, "height");
         }
 

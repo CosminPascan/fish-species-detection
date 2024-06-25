@@ -22,6 +22,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         })
             .then(res => res.json())

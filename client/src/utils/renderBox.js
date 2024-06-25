@@ -14,7 +14,7 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
 
     let detectedSpecies = null
     let detectedConfidence = null
-    let realWidth = null
+    let realLength = null
     let realHeight = null
 
     for (let i = 0; i < scoresData.length; i++) {
@@ -34,14 +34,14 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
             const width = x2 - x1
             const height = y2 - y1
 
-            const focalWidth = 500
+            const focalLength = 500
             const focalHeight = 650
 
-            realWidth = Math.round(width * distance / focalWidth * 100) / 100
+            realLength = Math.round(width * distance / focalLength * 100) / 100
             realHeight = Math.round(height * distance / focalHeight * 100) / 100
 
             // console.log(`class: ${className}, score: ${score}`)
-            // console.log(`width: ${realWidth}, height: ${realHeight}`)
+            // console.log(`length: ${realLength}, height: ${realHeight}`)
 
             // draw box
             const color = '#FF7600'
@@ -58,7 +58,8 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
 
             // draw label background
             ctx.fillStyle = color
-            const textWidth = ctx.measureText(className + ' - ' + classScore + '%, w - ' + realWidth + 'cm, h - ' + realHeight + 'cm').width
+            const textWidth = ctx.measureText(className + ' - ' + classScore + 
+                '%, length - ' + realLength + 'cm, height - ' + realHeight + 'cm').width
             const textHeight = parseInt(font, 10)
             const yText = y1 - (textHeight + ctx.lineWidth)
             ctx.fillRect(
@@ -71,12 +72,12 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
             // draw label
             ctx.fillStyle = '#FFFFFF'
             ctx.fillText(
-                className + ' - ' + classScore + '%, w - ' + realWidth + 'cm, h - ' + realHeight + 'cm', 
+                className + ' - ' + classScore + '%, length - ' + realLength + 'cm, height - ' + realHeight + 'cm', 
                 x1 - 1, 
                 yText < 0 ? 0 : yText
             )
         }
     }
 
-    return [detectedSpecies, detectedConfidence, realWidth, realHeight]
+    return [detectedSpecies, detectedConfidence, realLength, realHeight]
 }
