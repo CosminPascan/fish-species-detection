@@ -52,4 +52,10 @@ public class HabitatsController : ControllerBase
 
         return Ok(new { habitats });
     }
+
+    [HttpDelete("delete/{habitatName}"), Authorize]
+    public IActionResult Delete(string habitatName) {
+        _habitatServices.DeleteHabitatByName(habitatName);
+        return NoContent();
+    }
 }

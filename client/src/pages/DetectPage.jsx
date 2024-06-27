@@ -105,6 +105,7 @@ const DetectPage = ({ modelPath }) => {
                                         body: JSON.stringify(f)
                                     })
                                 }
+                                alert(`Habitat ${selectedHabitat} has been updated!`)
                             } else {
                                 alert('No species detected!')
                             }

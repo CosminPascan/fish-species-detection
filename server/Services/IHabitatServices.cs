@@ -9,4 +9,6 @@ public interface IHabitatServices
     Habitat GetHabitatByName(string name);
 
     List<Habitat> GetHabitatsByUserId(int userId);
+
+    void DeleteHabitatByName(string name);
 }

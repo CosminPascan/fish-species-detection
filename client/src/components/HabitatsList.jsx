@@ -1,13 +1,33 @@
+import { useRef } from "react"
 import { getImageURL } from "../utils/image"
 
-const HabitatsList = ({ habitats }) => {
+const HabitatsList = ({ habitats, loadHabitats }) => {
+
+    const textRefs = useRef([])
+
+    const handleDeleteHabitat = async (index) => {
+        const textEl = textRefs.current[index];
+        textEl.focus();
+        const habitatName = textEl.innerText
+        let token = localStorage.getItem('accessToken')
+        await fetch(`http://localhost:5234/api/habitats/delete/${habitatName}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include',
+        })
+
+        loadHabitats()
+    }
+
     return (
         <>
-            <div className="habitats-title">Habitats</div>
             <div className="habitats-list">
                 {habitats.map((habitat, index) => (
                     <div className="habitat-item" key={index}>
-                        <div className="habitat-name">{habitat.name}</div>
+                        <div className="habitat-name" ref={el => textRefs.current[index] = el}>{habitat.name}</div>
                         <div className="habitat-description">{habitat.description}</div>                    
                         <div className='detections-list'>
                             {habitat.detections.length ?
@@ -22,7 +42,8 @@ const HabitatsList = ({ habitats }) => {
                                         </div>
                                     </div>                               
                                 )) : 'No species detected'}
-                        </div>   
+                        </div>
+                        <button className='delete-button' onClick={() => handleDeleteHabitat(index)}>X</button>   
                     </div>          
                 ))}
             </div>
