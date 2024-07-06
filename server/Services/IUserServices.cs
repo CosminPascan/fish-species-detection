@@ -10,7 +10,7 @@ public interface IUserServices
 
     User GetUserByEmail(string email); 
 
-    User GetUserByRefreshToken(string token);
+    Task<User> GetUserByRefreshToken(string token);
 
     void AddRefreshTokenToUser(RefreshToken refreshToken, int id);
 }

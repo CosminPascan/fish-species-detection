@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
 
@@ -29,9 +30,9 @@ public class UserServices : IUserServices
         return _context.Users.FirstOrDefault(u => u.Email == email);
     }
 
-    public User GetUserByRefreshToken(string token)
+    public async Task<User> GetUserByRefreshToken(string token)
     {
-        return _context.Users.FirstOrDefault(u => u.RefreshToken.Token.Equals(token));
+        return await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken.Token.Equals(token));
     }
 
     public void AddRefreshTokenToUser(RefreshToken refreshToken, int id)

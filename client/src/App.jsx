@@ -8,7 +8,7 @@ import HabitatsPage from './pages/HabitatsPage'
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('accessToken') ? true : false)
 
-    const modelPath = 'http://localhost:5173/fish_species_v1.0_web_model/model.json'
+    const modelPath = 'http://localhost:5173/fish_species_v5.0_web_model/model.json'
 
     return (
         <>  

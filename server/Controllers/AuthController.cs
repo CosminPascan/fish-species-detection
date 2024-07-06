@@ -55,14 +55,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh-token")]
-    public IActionResult RefreshToken()
+    public async Task<IActionResult> RefreshToken()
     {
         var refreshToken = Request.Cookies["refresh-token"];
         
         if (refreshToken == null) 
             return Unauthorized(new { message = "Refresh token has expired! Please login again!" });
 
-        var user = _userServices.GetUserByRefreshToken(refreshToken);
+        var user = await _userServices.GetUserByRefreshToken(refreshToken);
 
         var accessToken = _tokenServices.GenerateAccessToken(user);
         var newRefreshToken = _tokenServices.GenerateRefreshToken();

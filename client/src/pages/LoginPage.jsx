@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from '../api/axios'
 import { FaAt, FaLock } from 'react-icons/fa'
 import '../style/LoginPage.css'
 
@@ -6,38 +7,20 @@ const LoginPage = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleEmail = (e) => {
-        setEmail(e.target.value)
-    }
-
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
-    }
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        fetch('http://localhost:5234/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({ email, password })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.message === 'Invalid email!' || data.message === 'Invalid password!') {
-                    alert(`${data.message}`)
-                } else {
-                    localStorage.setItem('accessToken', data.accessToken)
-                    setIsAuthenticated(() => true)
-                }
-            })
-            .catch(error => console.error('Error: ', error))
-
-        setEmail('')
-        setPassword('')
+        
+        try {
+            const response = await axios.post('/login',
+                JSON.stringify({ email, password })
+            )
+            localStorage.setItem('accessToken', response.data.accessToken)
+            setEmail('')
+            setPassword('')
+            setIsAuthenticated(() => true)
+        } catch (err) {
+            alert(`${err.response.data.message}`)
+        }    
     }
 
     return (
@@ -46,11 +29,23 @@ const LoginPage = ({ setIsAuthenticated }) => {
                 <form onSubmit={handleSubmit}>
                     <div className='login-text'>Login</div>
                     <div className='input-box'>
-                        <input type='email' placeholder='Email' required onChange={handleEmail} value={email} />
+                        <input 
+                            type='email' 
+                            placeholder='Email' 
+                            onChange={(e) => setEmail(e.target.value)} 
+                            value={email} 
+                            required 
+                        />
                         <FaAt className='icon'/>
                     </div>
                     <div className='input-box'>
-                        <input type='password' placeholder='Password' required onChange={handlePassword} value={password} />
+                        <input 
+                            type='password' 
+                            placeholder='Password' 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            value={password} 
+                            required 
+                        />
                         <FaLock className='icon'/>
                     </div>
                     <button className='login-btn' type='submit'>Login</button>

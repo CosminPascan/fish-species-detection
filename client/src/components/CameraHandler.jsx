@@ -71,7 +71,7 @@ const CameraHandler = ({ model, setFish }) => {
                     ref={canvasRef} />
             </div>
             
-            <div className="camera-btn-container">
+            <div className='camera-btn-container'>
                 <button onClick={() => {
                     if (distance === 0 || distance === '') {
                         alert('Please set a distance to begin!')

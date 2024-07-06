@@ -1,8 +1,8 @@
 const FishList = ({ fish }) => {
     return (
         <>
-            <div className="list-title">Detected species (Best metrics)</div>
-            <div className="list-container">
+            <div className='list-title'>Detected species (Best metrics)</div>
+            <div className='list-container'>
                 <ul>
                     {fish.map((fish, index) => (
                         <li key={index}>

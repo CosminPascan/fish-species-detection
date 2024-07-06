@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
 using SQLitePCL;
@@ -33,6 +34,7 @@ public class HabitatServices : IHabitatServices
     {
         Habitat h = _context.Habitats.Where(h => h.Name == name).FirstOrDefault();
         if (h != null) {
+            _context.Detections.Where(d => d.Habitat.Id == h.Id).ExecuteDelete();
             _context.Habitats.Remove(h);
             _context.SaveChanges();
         }  

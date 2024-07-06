@@ -11,7 +11,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
     return (
         <nav className='navbar'>
             <Link to={`/${menu[0].toLowerCase()}`}>
-                <img src={logo} width={50} height={50}></img>
+                <img src={logo} width={50} height={50} />
             </Link>
             <ul>
                 {menu.map((choice, index) => (
@@ -19,14 +19,17 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
                         <Link to={`/${choice.toLowerCase()}`}>{choice}</Link>
                     </li>
                 ))}
-                <li>
-                    {isAuthenticated && <button className='logout-btn' onClick={() => {
-                        setIsAuthenticated(() => {
+                
+                {isAuthenticated && 
+                    <li>
+                        <button className='logout-btn' onClick={() => {
                             localStorage.clear()
-                            return false
-                        })
-                    }}>Logout</button>}
-                </li>
+                            setIsAuthenticated(() => false)
+                        }}>
+                            Logout
+                        </button>
+                    </li>
+                }
             </ul>
         </nav>
     )
