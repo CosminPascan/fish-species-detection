@@ -8,7 +8,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
     const [password, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         
         try {
             const response = await axios.post('/login',
@@ -49,6 +49,11 @@ const LoginPage = ({ setIsAuthenticated }) => {
                         <FaLock className='icon'/>
                     </div>
                     <button className='login-btn' type='submit'>Login</button>
+                    <div className='register-link'>
+                        <p>Don't have an account?&nbsp;
+                            <a href='/register'>Register</a>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

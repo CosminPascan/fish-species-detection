@@ -68,3 +68,18 @@
 .login-btn:hover {
     background: #D3D3D3;
 }
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link p a {
+    color: #FFFFFF;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}

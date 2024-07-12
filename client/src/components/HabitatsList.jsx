@@ -15,8 +15,8 @@ const HabitatsList = ({ habitats, loadHabitats }) => {
     }
 
     const handleDeleteHabitat = async (index) => {
-        const textEl = textRefs.current[index];
-        textEl.focus();
+        const textEl = textRefs.current[index]
+        textEl.focus()
         const habitatName = textEl.innerText
         let token = localStorage.getItem('accessToken')
         try {

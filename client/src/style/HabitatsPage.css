@@ -8,7 +8,7 @@
 }
 
 .habitats-title {
-    height: 20vh;
+    height: 18vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,7 @@
 .detection-item {
     display: flex;
     align-items: center;
-    margin-right: 3rem;
+    margin: 10px 3rem 10px 0;
 }
 
 .detection-item img {

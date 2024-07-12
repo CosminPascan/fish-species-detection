@@ -3,8 +3,8 @@ import logo from '../assets/logo.png'
 import '../style/Navbar.css'
 
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
-    const unauthMenu = ['Home', 'Login']
-    const authMenu = ['Home', 'Habitats', 'Detect']
+    const unauthMenu = ['Login', 'Register']
+    const authMenu = ['Habitats', 'Detect']
 
     let menu = isAuthenticated ? authMenu : unauthMenu
 

@@ -28,7 +28,7 @@ public class TokenServices : ITokenServices
                 new Claim("id", user.Id.ToString()),
                 new Claim("e-mail", user.Email)
             },
-            expires: DateTime.Now.AddMinutes(10),
+            expires: DateTime.Now.AddMinutes(20),
             signingCredentials: credentials
         );
 

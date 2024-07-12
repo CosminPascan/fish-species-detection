@@ -2,7 +2,7 @@
 This is a web application designed to detect fish species and estimate their size in real-time using a yolov8 custom trained model.
 
 ## Features
-- **fish species detection** (blue-tang, butterflyfish, clownfish, neon-tetra, yellow-tang available now)
+- **fish species detection** (blue-tang, butterflyfish, clownfish, moorish-idol, neon-tetra, ribboned-sweetlips, yellow-tang)
 - **fish size estimation**
 
 ## Credentials

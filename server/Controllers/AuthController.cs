@@ -21,6 +21,11 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register(RegisterDto dto)
     {   
+        var u = _userServices.GetUserByEmail(dto.Email);
+        
+        if (u != null)
+            return Ok(new { message = "Email already taken!" });
+            
         var user = new User
         {   
             Username = dto.Username,
