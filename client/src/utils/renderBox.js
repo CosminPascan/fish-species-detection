@@ -1,4 +1,5 @@
 import labels from '../data/labels.json'
+import Colors from './colors'
 
 export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData, ratios) => {
     const ctx = canvas.getContext('2d')
@@ -7,7 +8,7 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
     // configure font
     const font = `${Math.max(
         Math.round(Math.max(ctx.canvas.width, ctx.canvas.height) / 40), 
-        14
+        22
     )}px Arial`
     ctx.font = font
     ctx.textBaseline = 'top'
@@ -21,7 +22,7 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
         const className = labels[classesData[i]]
         const classScore = (scoresData[i] * 100).toFixed(2)
 
-        if (classScore >= 85) {
+        if (classScore >= 90) {
             detectedSpecies = className
             detectedConfidence = classScore
 
@@ -43,8 +44,10 @@ export const renderBoxes = (distance, canvas, boxesData, scoresData, classesData
             // console.log(`class: ${className}, score: ${score}`)
             // console.log(`length: ${realLength}, height: ${realHeight}`)
 
+            const colors = new Colors()
+            const color = colors.get(classesData[i])
+
             // draw box
-            const color = '#FF7600'
             ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'
             ctx.fillRect(x1, y1, width, height)
 

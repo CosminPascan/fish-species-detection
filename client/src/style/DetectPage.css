@@ -78,6 +78,9 @@
 
 .fish-container ul {
     list-style-type: none;
+    width: 60%;
+    height: 400px;
+    overflow: auto;
 }
 
 .fish-container ul li {
